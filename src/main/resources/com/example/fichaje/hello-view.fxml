@@ -10,12 +10,13 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="532.0" prefWidth="999.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.fichaje.HelloController">
     <children>
       <TabPane prefHeight="466.0" prefWidth="937.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
-          <Tab text="Untitled Tab 1">
+          <Tab text="CRUD Trabajadores">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
@@ -48,11 +49,11 @@
                   </AnchorPane>
             </content>
           </Tab>
-          <Tab fx:id="tab2" onSelectionChanged="#ponReloj" text="Untitled Tab 2">
+          <Tab fx:id="tab2" onSelectionChanged="#ponReloj" text="Fichaje">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <TableView fx:id="trabajadorTable1" layoutX="123.0" layoutY="59.0" prefHeight="300.0" prefWidth="745.0">
+                        <TableView fx:id="trabajadorTable1" layoutX="123.0" layoutY="59.0" prefHeight="154.0" prefWidth="745.0">
                            <columns>
                               <TableColumn fx:id="colId1" prefWidth="50.0" text="ID" />
                               <TableColumn fx:id="colNombre1" prefWidth="100.0" text="Nombre" />
@@ -61,8 +62,17 @@
                               <TableColumn fx:id="colDepartamento1" prefWidth="100.0" text="Departamento" />
                            </columns>
                         </TableView>
-                        <Button layoutX="444.0" layoutY="405.0" mnemonicParsing="false" text="Button" />
-                        <Label fx:id="tiempo" layoutX="456.0" layoutY="367.0" text="Label" />
+                        <Label fx:id="tiempo" layoutX="380.0" layoutY="219.0" text="Label">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="175.0" layoutY="24.0" prefHeight="17.0" prefWidth="574.0" text="Selecciona un trabajador y haz clic en Fichaje">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Label>
+                        <Button layoutX="457.0" layoutY="260.0" mnemonicParsing="false" text="Fichaje" />
                      </children>
                   </AnchorPane>
             </content>
