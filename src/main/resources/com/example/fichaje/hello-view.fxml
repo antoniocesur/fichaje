@@ -2,6 +2,7 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TableColumn?>
@@ -47,11 +48,11 @@
                   </AnchorPane>
             </content>
           </Tab>
-          <Tab text="Untitled Tab 2">
+          <Tab fx:id="tab2" onSelectionChanged="#ponReloj" text="Untitled Tab 2">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <TableView fx:id="trabajadorTable2" layoutX="123.0" layoutY="59.0" prefHeight="300.0" prefWidth="745.0">
+                        <TableView fx:id="trabajadorTable1" layoutX="123.0" layoutY="59.0" prefHeight="300.0" prefWidth="745.0">
                            <columns>
                               <TableColumn fx:id="colId1" prefWidth="50.0" text="ID" />
                               <TableColumn fx:id="colNombre1" prefWidth="100.0" text="Nombre" />
@@ -60,6 +61,8 @@
                               <TableColumn fx:id="colDepartamento1" prefWidth="100.0" text="Departamento" />
                            </columns>
                         </TableView>
+                        <Button layoutX="444.0" layoutY="405.0" mnemonicParsing="false" text="Button" />
+                        <Label fx:id="tiempo" layoutX="456.0" layoutY="367.0" text="Label" />
                      </children>
                   </AnchorPane>
             </content>

@@ -1,5 +1,6 @@
 package com.example.fichaje;
 import com.example.fichaje.Trabajador;
+import javafx.animation.AnimationTimer;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -9,6 +10,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.net.URL;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
 public class HelloController implements Initializable {
@@ -68,6 +71,11 @@ public class HelloController implements Initializable {
     private TableColumn<Trabajador, String> colNombre1;
     @FXML
     private ComboBox<String> comboDepartamento;
+    @FXML
+    private Label tiempo;
+    @FXML
+    private Tab tab2;
+    AnimationTimer timer;
 
     RepositorioTrabajador repositorioTrabajador;
     Conexion conexion;
@@ -101,6 +109,18 @@ public class HelloController implements Initializable {
             comboDepartamento.getSelectionModel().select(t.getDepartamento());
         });
 
+        //Ahora preparo la tabla de los trabajadores de la segunda pestaña
+        colId1.setCellValueFactory(new PropertyValueFactory<Trabajador, Integer>("id"));
+        colNombre1.setCellValueFactory(new PropertyValueFactory<Trabajador, String>("nombre"));
+        colApellidos1.setCellValueFactory(new PropertyValueFactory<Trabajador, String>("apellidos"));
+        colDni1.setCellValueFactory(new PropertyValueFactory<Trabajador, String>("dni"));
+        colDepartamento1.setCellValueFactory(new PropertyValueFactory<Trabajador, String>("departamento"));
+
+        trabajadorTable1.setItems(listaTrabajadores);
+
+        //Ahora creo el repositorio para añadir fichajes usando la conexión anterior a la BBDD
+        RepositorioFichaje repositorioFichaje=new RepositorioFichaje(conexion.conexion);
+
     }
 
     public void actualizarTabla(){
@@ -131,5 +151,17 @@ public class HelloController implements Initializable {
         actualizarTabla();
     }
 
+    public void ponReloj(){
+        //Pongo un reloj en una etiqueta cuando se pulse la segunda pestaña (tab2) por primera vez
+        if(timer==null) {
+            timer = new AnimationTimer() {
+                @Override
+                public void handle(long now) {
+                    tiempo.setText(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+                }
+            };
+            timer.start();
+        }
+    }
 
 }

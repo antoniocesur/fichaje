@@ -21,9 +21,9 @@ public class RepositorioTrabajador {
         try {
             stmt = conexion.createStatement();
             String CREATE_TABLE_SQL="CREATE TABLE IF NOT EXISTS trabajadores (" +
-                    "    id               INTEGER PRIMARY KEY AUTO_INCREMENT,\n" +
+                    "    id               INTEGER AUTO_INCREMENT,\n" +
                     "    nombre           VARCHAR (50), apellidos VARCHAR(50), dni varchar(15), " +
-                    "    departamento     VARCHAR(50)" +
+                    "    departamento     VARCHAR(50), PRIMARY KEY (id)" +
                     ");";
             stmt.executeUpdate(CREATE_TABLE_SQL);
         }catch (SQLException sqlException){
