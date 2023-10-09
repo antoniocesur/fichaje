@@ -171,25 +171,27 @@ public class HelloController implements Initializable {
     public void pulsaFichaje(){
         //Cogemos el id del trabajador seleccionado en la tabla
         Trabajador t =trabajadorTable1.getSelectionModel().getSelectedItem();
-        int idTrabajadorActual=t.getId();
+        if(t != null) {
+            int idTrabajadorActual = t.getId();
 
-        //Consultamos si hay alguna entrada sin salida de ese trabajador. Si no hay fichajes o todos tienen salida, devuelve null
-        Fichaje fichaje=repositorioFichaje.fichajeSinSalida(idTrabajadorActual);
+            //Consultamos si hay alguna entrada sin salida de ese trabajador. Si no hay fichajes o todos tienen salida, devuelve null
+            Fichaje fichaje = repositorioFichaje.fichajeSinSalida(idTrabajadorActual);
 
-        //Si fichaje es null, tengo que hacer un nuevo fichaje con los datos de entrada
-        if(fichaje==null){
-            fichaje=new Fichaje();
-            fichaje.setIdTrabajador(idTrabajadorActual);
-            fichaje.setFechaEntrada(java.sql.Date.valueOf(LocalDate.now()));
-            fichaje.setHoraEntrada(java.sql.Time.valueOf(LocalTime.now()));
-            fichaje.setSalidaFijada(false);
-            repositorioFichaje.inserta(fichaje);
-        }else{
-            //Si nos devuelven un fichaje, completamos los datos de la fecha y hora de salida
-            fichaje.setFechaSalida(java.sql.Date.valueOf(LocalDate.now()));
-            fichaje.setHoraSalida(java.sql.Time.valueOf(LocalTime.now()));
-            fichaje.setSalidaFijada(true);
-            repositorioFichaje.modifica(fichaje);
+            //Si fichaje es null, tengo que hacer un nuevo fichaje con los datos de entrada
+            if (fichaje == null) {
+                fichaje = new Fichaje();
+                fichaje.setIdTrabajador(idTrabajadorActual);
+                fichaje.setFechaEntrada(java.sql.Date.valueOf(LocalDate.now()));
+                fichaje.setHoraEntrada(java.sql.Time.valueOf(LocalTime.now()));
+                fichaje.setSalidaFijada(false);
+                repositorioFichaje.inserta(fichaje);
+            } else {
+                //Si nos devuelven un fichaje, completamos los datos de la fecha y hora de salida
+                fichaje.setFechaSalida(java.sql.Date.valueOf(LocalDate.now()));
+                fichaje.setHoraSalida(java.sql.Time.valueOf(LocalTime.now()));
+                fichaje.setSalidaFijada(true);
+                repositorioFichaje.modifica(fichaje);
+            }
         }
     }
 
