@@ -4,10 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.sql.*;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Locale;
 
 public class RepositorioTrabajador {
     Connection conexion;
@@ -94,7 +91,7 @@ public class RepositorioTrabajador {
             sqle.printStackTrace();
         }
     }
-    public void update(Trabajador alumno){
+    public void modificar(Trabajador alumno){
         PreparedStatement sentencia = null;
 
         String sentenciaSQL = "UPDATE trabajadores SET nombre=?, apellidos=?, dni=?, departamento=? WHERE id = ?";

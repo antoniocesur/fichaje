@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="532.0" prefWidth="999.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.fichaje.HelloController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="532.0" prefWidth="999.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.fichaje.HelloController">
     <children>
       <TabPane prefHeight="466.0" prefWidth="937.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
@@ -72,7 +72,7 @@
                               <Font size="24.0" />
                            </font>
                         </Label>
-                        <Button layoutX="457.0" layoutY="260.0" mnemonicParsing="false" text="Fichaje" />
+                        <Button fx:id="btnFichaje" layoutX="457.0" layoutY="260.0" mnemonicParsing="false" onAction="#pulsaFichaje" text="Fichaje" />
                      </children>
                   </AnchorPane>
             </content>

@@ -1,5 +1,4 @@
 package com.example.fichaje;
-import com.example.fichaje.Trabajador;
 import javafx.animation.AnimationTimer;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -11,7 +10,10 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.ResourceBundle;
 
 public class HelloController implements Initializable {
@@ -78,6 +80,7 @@ public class HelloController implements Initializable {
     AnimationTimer timer;
 
     RepositorioTrabajador repositorioTrabajador;
+    RepositorioFichaje repositorioFichaje;
     Conexion conexion;
 
     @Override
@@ -119,13 +122,14 @@ public class HelloController implements Initializable {
         trabajadorTable1.setItems(listaTrabajadores);
 
         //Ahora creo el repositorio para añadir fichajes usando la conexión anterior a la BBDD
-        RepositorioFichaje repositorioFichaje=new RepositorioFichaje(conexion.conexion);
+        repositorioFichaje=new RepositorioFichaje(conexion.conexion);
 
     }
 
     public void actualizarTabla(){
         ObservableList<Trabajador> listaTrabajadores=repositorioTrabajador.leerTodosFX();
         trabajadorTable.setItems(listaTrabajadores);
+        trabajadorTable1.setItems(listaTrabajadores);
     }
     public void pulsarInsertar(){
         Trabajador t=new Trabajador();
@@ -147,7 +151,7 @@ public class HelloController implements Initializable {
         t.setDni(dniTextField.getText());
         //t.setDepartamento(departamentoTextField.getText());
 
-        repositorioTrabajador.update(t);
+        repositorioTrabajador.modificar(t);
         actualizarTabla();
     }
 
@@ -161,6 +165,31 @@ public class HelloController implements Initializable {
                 }
             };
             timer.start();
+        }
+    }
+
+    public void pulsaFichaje(){
+        //Cogemos el id del trabajador seleccionado en la tabla
+        Trabajador t =trabajadorTable1.getSelectionModel().getSelectedItem();
+        int idTrabajadorActual=t.getId();
+
+        //Consultamos si hay alguna entrada sin salida de ese trabajador. Si no hay fichajes o todos tienen salida, devuelve null
+        Fichaje fichaje=repositorioFichaje.fichajeSinSalida(idTrabajadorActual);
+
+        //Si fichaje es null, tengo que hacer un nuevo fichaje con los datos de entrada
+        if(fichaje==null){
+            fichaje=new Fichaje();
+            fichaje.setIdTrabajador(idTrabajadorActual);
+            fichaje.setFechaEntrada(java.sql.Date.valueOf(LocalDate.now()));
+            fichaje.setHoraEntrada(java.sql.Time.valueOf(LocalTime.now()));
+            fichaje.setSalidaFijada(false);
+            repositorioFichaje.inserta(fichaje);
+        }else{
+            //Si nos devuelven un fichaje, completamos los datos de la fecha y hora de salida
+            fichaje.setFechaSalida(java.sql.Date.valueOf(LocalDate.now()));
+            fichaje.setHoraSalida(java.sql.Time.valueOf(LocalTime.now()));
+            fichaje.setSalidaFijada(true);
+            repositorioFichaje.modifica(fichaje);
         }
     }
 
